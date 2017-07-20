@@ -1,8 +1,17 @@
+import java.awt.DisplayMode;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class crcheck {
 
 	/*
-	 * CRC polynomial: x^15 + x^13 + x^6 + x^4 + x + 1 = 1010000001010011
-	 * 
+	 * CRC polynomial: x^16 + x^10 + x^8 + x^7 + x^3 + 1 = 0x0589
+	 *  
 	 * only two parameters can be passed:
 	 * 
 	 * Parameter 1: "c" or "v" c = calculate || v = verify -if parameter one
@@ -11,16 +20,12 @@ public class crcheck {
 	 * Parameter 2: Name of file file needs a be a text file in the same folder
 	 * as program if file isn't located in same folder, print error and exit
 	 * 
-	 * direct all output to terminal
-	 * 
-	 * program MUST run on Eustis (test server?)
-	 * 
 	 * source file must be named crcheck.java
 	 * 
 	 * include README file that contains 
-	 * ï¿½ The compilation command for your program 
-	 * ï¿½ The run command for your program 
-	 * ï¿½ Your statement that the
+	 * • The compilation command for your program 
+	 * • The run command for your program 
+	 * • Your statement that the
 	 * 	program is entirely your own work and that you have neither developed
 	 * 	your code together with any another person, nor copied program code from
 	 * 	any other person, nor permitted your code to be copied or otherwise used
@@ -28,38 +33,39 @@ public class crcheck {
 	 * 	program code that you have found in any external source, including but
 	 * 	not limited to, online sources.
 	 */
-	
-	/*
-	 * Main method for the program. All methods can calculations will be
-	 * performed in the Calculations class,
-	 */
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+
+		System.out.println("Hello World");
 		
-		Calculations calc = new Calculations();
+		displayFiletext();
 
 	}
-
+	
+	public static  void displayFiletext() throws IOException{
+		
+		InputStream input = new BufferedInputStream(new FileInputStream("TestCase.txt"));
+		
+		byte[] buffer = new byte[8192];
+		
+		try {
+			for (int length = 0; (length = input.read(buffer)) != -1;) {
+				System.out.write(buffer, 0, length);
+			}
+		} finally {
+			input.close();
+		}
+		
 }
 
 class Calculations {
 	
-	/*
-	 * Functions to include:
-	 * -read files and input data into array
-	 * -XOR functions that takes 32-bit input unsigned binary
-	 * 	integers and returns XOR result
-	 * -function for CRC calculation
-	 * -function for CRC verification
-	 * -must run on Eustis
-	 * 
-	 * Optional functions:
-	 * -Regex to trim lines
-	 * -read files line by line
-	 * -seperate output to write to new lines
-	 */
+	// variables
+	int POLYNOMIAL_CHECK = 0x0589;
 	
-	//class variables
-	long POLYNOMIAL = 1010000001010011L;
+	// constructor method
+	public Calculations() {	}
 	
 	// calculate method
 	public void calculate() {
@@ -69,10 +75,6 @@ class Calculations {
 	// verify method
 	public void verify() {
 		
-	}
-	
-	// XOR method
-	public void xor() {
-		
+		}	
 	}
 }
